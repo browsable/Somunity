@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_default"
+    android:paddingRight="@dimen/margin_default"
+    android:paddingTop="@dimen/margin_xs"
+    android:paddingBottom="@dimen/margin_xs"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/ivProfile"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_account_circle_black_36dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:layout_toRightOf="@+id/ivProfile">
+
+        <TextView
+            android:id="@+id/comment_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/comment_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/margin_default"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xxxs"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/ivOverflow"
+        android:layout_marginRight="@dimen/margin_s"
+        android:textSize="@dimen/textsize_s"
+        />
+    <ImageView
+        android:id="@+id/ivOverflow"
+        android:layout_width="@dimen/ic_album_overflow_width"
+        android:layout_height="@dimen/ic_album_overflow_height"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_dots" />
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">130dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_xxxxl">50dp</dimen>
+    <dimen name="margin_xxxl">28dp</dimen>
+    <dimen name="margin_xxl">25dp</dimen>
+    <dimen name="margin_xl">20dp</dimen>
+    <dimen name="margin_ml">18dp</dimen>
+    <dimen name="margin_l">15dp</dimen>
+    <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_m">9dp</dimen>
+    <dimen name="margin_s">8dp</dimen>
+    <dimen name="margin_xs">6dp</dimen>
+    <dimen name="margin_xxs">4dp</dimen>
+    <dimen name="margin_xxxs">2dp</dimen>
+    <dimen name="textsize_xxxxl">26sp</dimen>
+    <dimen name="textsize_xxxl">20sp</dimen>
+    <dimen name="textsize_xxl">18sp</dimen>
+    <dimen name="textsize_xl">16sp</dimen>
+    <dimen name="textsize_l">14sp</dimen>
+    <dimen name="textsize_default">12sp</dimen>
+    <dimen name="textsize_s">10sp</dimen>
+    <dimen name="textsize_ms">9sp</dimen>
+    <dimen name="textsize_xs">8sp</dimen>
+    <dimen name="textsize_xxs">6sp</dimen>
+    <dimen name="textsize_xxxs">4sp</dimen>
+    <dimen name="dialog_bar">48dp</dimen>
+
+    <dimen name="icon_top_margin">24dp</dimen>
+    <dimen name="icon_bottom_margin">24dp</dimen>
+    <dimen name="title_bottom_margin">16dp</dimen>
+    <dimen name="field_width_standard">160dp</dimen>
+
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="backdrop_title">30dp</dimen>
+    <dimen name="backdrop_subtitle">18dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
+    <dimen name="album_cover_height">160dp</dimen>
+    <dimen name="album_title_padding">10dp</dimen>
+    <dimen name="album_title">15dp</dimen>
+    <dimen name="songs_count_padding_bottom">5dp</dimen>
+    <dimen name="songs_count">12dp</dimen>
+    <dimen name="ic_album_overflow_width">20dp</dimen>
+    <dimen name="ic_album_overflow_height">30dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+    <dimen name="user_detail_photo_size">80dp</dimen>
+    <dimen name="user_detail_post_tile_size">100dp</dimen>
+    <dimen name="user_detail_backdrop_height">256dp</dimen>
+</resources>

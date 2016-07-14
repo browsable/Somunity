@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "730223051715",
+    "firebase_url": "https://somaslack.firebaseio.com",
+    "project_id": "somaslack",
+    "storage_bucket": "somaslack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730223051715:android:1ae28822d26d443b",
+        "android_client_info": {
+          "package_name": "com.soma.daemin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730223051715-l9t8mc8t3qturim7m7uf6irn660e46c7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.soma.daemin",
+            "certificate_hash": "7E1A37A83592098513F6B3B6A82506355955035C"
+          }
+        },
+        {
+          "client_id": "730223051715-cgrlv360kkdciqcq25af5esj4bgca79o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRcJrXNxizsk81Muw-xY1Skrb3Bly2RPs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730223051715-cgrlv360kkdciqcq25af5esj4bgca79o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
