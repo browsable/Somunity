@@ -21,15 +21,16 @@ public class MessageData {
     private String name;
     private String photoUrl;
     private String imageUrl;
-
+    private String uId;
     public MessageData() {
     }
 
-    public MessageData(String text, String name, String photoUrl, String imageUrl) {
+    public MessageData(String text, String name, String photoUrl, String imageUrl, String uId) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
+        this.uId = uId;
     }
 
     public String getText() {
@@ -46,6 +47,14 @@ public class MessageData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public String getPhotoUrl() {

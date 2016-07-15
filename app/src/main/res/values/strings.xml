@@ -57,7 +57,7 @@
     <string name="update_notice">업데이트 버전이 있습니다.\n마켓으로 이동합니다.</string>
     <string name="btDialCancel">취소</string>
     <string name="btDialSetting">확인</string>
-
+    <string name="mem_login">접속중</string>
     <string name="nav_home">Somunity</string>
     <string name="nav_home_eng">Home</string>
     <string name="nav_chat">Chat</string>

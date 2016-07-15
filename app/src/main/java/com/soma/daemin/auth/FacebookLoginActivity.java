@@ -179,7 +179,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                             pref.edit().putInt("loginType",1).apply();
                             finish();
                             fUtil.firebaseUser = task.getResult().getUser();
-                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),null,null));
+                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),null,null));
                             Intent i = new Intent(FacebookLoginActivity.this, MainActivity.class);
                             i.putExtra("uId", fUtil.firebaseUser.getUid());
                             startActivity(i);

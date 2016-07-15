@@ -23,9 +23,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String uId = getIntent().getStringExtra("uId");
         ivDetail = (ImageView) findViewById(R.id.ivDetail);
-
         fUtil.databaseReference.child("users").child(uId).child("fullPhotoURL").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -50,5 +50,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Glide.clear(ivDetail);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 }

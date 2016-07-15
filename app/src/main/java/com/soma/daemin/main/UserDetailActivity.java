@@ -46,6 +46,8 @@ import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.fragment.NewPicUploadTaskFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,10 +70,10 @@ public class UserDetailActivity extends AppCompatActivity implements
     private NewPicUploadTaskFragment mTaskFragment;
     private static final int RC_CAMERA_PERMISSIONS = 102;
     public RequestManager mGlideRequestManager;
-    private TextView tvPos, tvKo, tvEn;
-    private String bibleNum;
+    private boolean imgDetail;
     private ProgressBar bar;
-    private Button btAddProfile;
+    private Button btAddProfile, btAddFriend;
+    private TextView tvStudy, tvCareer, tvStartTime, tvEndTime;
     private static final String[] cameraPerms = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -80,6 +82,7 @@ public class UserDetailActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
+        imgDetail = false;
         final String uId = getIntent().getStringExtra("uId");
         mGlideRequestManager = Glide.with(UserDetailActivity.this);
         currentUserId = fUtil.getCurrentUserId();
@@ -88,71 +91,65 @@ public class UserDetailActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(fUtil.getCurrentUserName());
         ivProfile = (CircleImageView) findViewById(R.id.ivProfile);
         btAddProfile = (Button) findViewById(R.id.btAddProfile);
+        btAddFriend = (Button) findViewById(R.id.btAddFriend);
+        tvStudy = (TextView) findViewById(R.id.tvStudy);
+        tvCareer = (TextView) findViewById(R.id.tvCareer);
+        tvStartTime = (TextView) findViewById(R.id.tvStartTime);
+        tvEndTime = (TextView) findViewById(R.id.tvEndTime);
         bar = (ProgressBar) findViewById(R.id.progressBar);
-        tvPos = (TextView) findViewById(R.id.tvPos);
-        tvKo = (TextView) findViewById(R.id.tvKo);
-        tvEn = (TextView) findViewById(R.id.tvEn);
+        if(uId.equals(currentUserId)) btAddFriend.setVisibility(View.INVISIBLE);
         try {
             fUtil.databaseReference.child("users").child(uId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         User user = dataSnapshot.getValue(User.class);
-                        mGlideRequestManager.load(user.getThumbPhotoURL())
-                                .placeholder(R.drawable.ic_account_circle_black_36dp)
-                                .dontAnimate()
-                                .fitCenter()
-                                .into(ivProfile);
+                        String study = user.getStudy();
+                        String career = user.getCareer();
+                        String startTime = user.getStartTime();
+                        String endTime = user.getEndTime();
+                        if(user.getThumbPhotoURL()==null) {
+                            imgDetail = false;
+                            collapsingToolbar.setTitle("");
+                            ivProfile.setBackgroundResource(R.drawable.ic_account_circle_black_36dp);
+                        }
+                        else {
+                            mGlideRequestManager.load(user.getThumbPhotoURL())
+                                    .placeholder(R.drawable.ic_account_circle_black_36dp)
+                                    .dontAnimate()
+                                    .fitCenter()
+                                    .into(ivProfile);
+                            imgDetail = true;
+                        }
                         collapsingToolbar.setTitle(user.getuName());
-                        /*fUtil.databaseReference.child("bible").child(bibleNum).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                try {
-                                    HashMap<String, String> hash = (HashMap) dataSnapshot.getValue();
-                                    tvPos.setText(hash.get("본문"));
-                                    tvKo.setText(hash.get("한글"));
-                                    tvEn.setText(hash.get("영어"));
-                                }catch(NullPointerException e){
-                                    Random r = new Random();
-                                    String bibleNum = String.valueOf(r.nextInt(239));
-                                    fUtil.databaseReference.child("bible").child(bibleNum).addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            try {
-                                                HashMap<String, String> hash = (HashMap) dataSnapshot.getValue();
-                                                tvPos.setText(hash.get("본문"));
-                                                tvKo.setText(hash.get("한글"));
-                                                tvEn.setText(hash.get("영어"));
-                                            }catch(NullPointerException e){
-                                            }
-                                        }
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
+                        if(study != null) tvStudy.setText(study);
+                        if(career != null) tvCareer.setText(career);
+                        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        if(startTime != null) {
+                            String sTime = dayTime.format(new Date(Long.parseLong(startTime)));
+                            tvStartTime.setText(sTime);
+                        }
+                        if(endTime != null){
+                            String eTime = dayTime.format(new Date(Long.parseLong(endTime)));
+                            tvEndTime.setText(eTime);
+                        }
 
-                                        }
-                                    });
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });*/
                     } else {
                         collapsingToolbar.setTitle(fUtil.getCurrentUserName());
                         ivProfile.setBackgroundResource(R.drawable.ic_account_circle_black_36dp);
+                        imgDetail = false;
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    imgDetail = false;
                 }
             });
         } catch (Exception e) {
+            imgDetail = false;
         }
 
 
@@ -177,9 +174,11 @@ public class UserDetailActivity extends AppCompatActivity implements
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(UserDetailActivity.this,DetailActivity.class);
-                i.putExtra("uId",uId);
-                startActivity(i);
+                if(imgDetail) {
+                    Intent i = new Intent(UserDetailActivity.this, DetailActivity.class);
+                    i.putExtra("uId", uId);
+                    startActivity(i);
+                }
             }
         });
         if(fUtil.getCurrentUserId().equals(uId)) {

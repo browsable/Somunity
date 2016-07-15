@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_default"
         android:layout_marginBottom="@dimen/margin_default"
+        android:id="@+id/llUser"
         android:gravity="center_vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -19,7 +20,7 @@
             android:src="@drawable/ic_account_circle_black_36dp"/>
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -29,6 +30,16 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/messengerTextView"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/tvLogin"
+                android:text="@string/mem_login"
+                android:layout_marginRight="@dimen/margin_default"
+                android:gravity="end"
+                android:textColor="@color/grey_300"
                 android:layout_weight="0"/>
         </LinearLayout>
 

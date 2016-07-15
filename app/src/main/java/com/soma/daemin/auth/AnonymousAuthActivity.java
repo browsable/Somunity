@@ -131,7 +131,7 @@ public class AnonymousAuthActivity extends AppCompatActivity implements
                             SharedPreferences pref = getSharedPreferences("USERINFO", MODE_PRIVATE);
                             pref.edit().putInt("loginType",3).apply();
                             fUtil.firebaseUser = task.getResult().getUser();
-                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User("anonymous",null,null));
+                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User("anonymous",fUtil.getCurrentUserId(),null,null));
                             startActivity(new Intent(AnonymousAuthActivity.this, MainActivity.class));
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }

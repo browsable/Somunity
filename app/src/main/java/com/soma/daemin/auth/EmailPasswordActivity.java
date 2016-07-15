@@ -126,7 +126,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements
                             SharedPreferences pref = getSharedPreferences("USERINFO", MODE_PRIVATE);
                             pref.edit().putInt("loginType",2).apply();
                             fUtil.firebaseUser = task.getResult().getUser();
-                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(name,null,null));
+                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(name,fUtil.getCurrentUserId(),null,null));
                             startActivity( new Intent(EmailPasswordActivity.this, MainActivity.class));
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }

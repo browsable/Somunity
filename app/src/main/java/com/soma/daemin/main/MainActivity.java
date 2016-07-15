@@ -23,12 +23,15 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.soma.daemin.R;
 import com.soma.daemin.auth.SignInActivity;
 import com.soma.daemin.common.BackPressCloseHandler;
 import com.soma.daemin.common.My;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.fragment.CalendarFragment;
+import com.soma.daemin.fragment.ChatFragment;
 import com.soma.daemin.fragment.MainFragment;
 import com.soma.daemin.fragment.MemberFragment;
 
@@ -65,6 +68,24 @@ public class MainActivity extends AppCompatActivity
 
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
         backPressCloseHandler = new BackPressCloseHandler(this);
+
+        fUtil.databaseReference.child("users").child(fUtil.getCurrentUserId()).child("startTime").setValue(System.currentTimeMillis()+"").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fUtil.databaseReference.child("users").child(fUtil.getCurrentUserId()).child("endTime").setValue(System.currentTimeMillis()+"").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
     }
 
     @Override
@@ -127,6 +148,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_home:
                 My.INFO.backKeyName ="MainFragment";
                 fm.beginTransaction().replace(R.id.content_frame,new MainFragment()).commit();
+                break;
+            case R.id.nav_chat:
+                My.INFO.backKeyName ="ChatFragment";
+                fm.beginTransaction().replace(R.id.content_frame,new ChatFragment()).commit();
                 break;
             case R.id.nav_mem:
                 My.INFO.backKeyName ="MemberFragment";

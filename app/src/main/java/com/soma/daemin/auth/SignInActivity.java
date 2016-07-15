@@ -122,7 +122,7 @@ public class SignInActivity extends AppCompatActivity implements
                     SharedPreferences pref =  getSharedPreferences("USERINFO", MODE_PRIVATE);
                     pref.edit().putInt("loginType",0).apply();
                     fUtil.firebaseUser = task.getResult().getUser();
-                    fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),null,null));
+                    fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),null,null));
                     startActivity(new Intent(SignInActivity.this, MainActivity.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }

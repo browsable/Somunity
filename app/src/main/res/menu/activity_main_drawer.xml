@@ -6,6 +6,9 @@
             android:id="@+id/nav_home"
             android:title="@string/nav_home_eng" />
         <item
+            android:id="@+id/nav_chat"
+            android:title="@string/nav_chat" />
+        <item
             android:id="@+id/nav_mem"
             android:title="@string/nav_mem" />
         <item

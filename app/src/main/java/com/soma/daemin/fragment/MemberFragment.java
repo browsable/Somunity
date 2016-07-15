@@ -5,12 +5,14 @@ package com.soma.daemin.fragment;
  */
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.soma.daemin.R;
 import com.soma.daemin.common.My;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
+import com.soma.daemin.main.UserDetailActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,14 +44,16 @@ public class MemberFragment extends Fragment {
     private AdView mAdView;
     private FirebaseRecyclerAdapter<User,MessageViewHolder> mFirebaseAdapter;
     private int memCnt;
-
+    public CircleImageView mImageView;
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView messengerTextView;
+        public TextView tvLogin;
         public CircleImageView messengerImageView;
 
         public MessageViewHolder(View v) {
             super(v);
             messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
+            tvLogin = (TextView) itemView.findViewById(R.id.tvLogin);
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
         }
     }
@@ -76,17 +81,41 @@ public class MemberFragment extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder, User user, int position) {
+                final MessageViewHolder vHolder = viewHolder;
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_mem)+" ("+(++memCnt)+")");
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-                viewHolder.messengerTextView.setText(user.getuName());
+                vHolder.messengerTextView.setText(user.getuName());
+                String eTime = user.getEndTime();
+                String sTime = user.getStartTime();
+                if(eTime!=null&&sTime!=null) {
+                    if (Long.parseLong(eTime) - Long.parseLong(sTime) < 0) {
+                        vHolder.tvLogin.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    }else{
+                        vHolder.tvLogin.setText(DateUtils.getRelativeTimeSpanString(Long.parseLong(eTime)));
+                    }
+                }else{
+                    vHolder.tvLogin.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+                mImageView = viewHolder.messengerImageView;
+                final String uId = user.getuId();
                 if(user.getThumbPhotoURL()==null){
-                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(),
+                    vHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(),
                             R.drawable.ic_account_circle_black_36dp));
                 }else{
+                    try{
                     Glide.with(getActivity())
                             .load(user.getThumbPhotoURL())
-                            .into(viewHolder.messengerImageView);
+                            .into(vHolder.messengerImageView);
+                    }catch(NullPointerException e){}
                 }
+                vHolder.messengerImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity(), UserDetailActivity.class);
+                        i.putExtra("uId",uId);
+                        startActivity(i);
+                    }
+                });
             }
         };
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -102,10 +131,6 @@ public class MemberFragment extends Fragment {
         mAdView = (AdView) rootView.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-       /* Intent i = new Intent(getActivity(), UserDetailActivity.class);
-        i.putExtra("uId", fUtil.getCurrentUserId());
-        startActivity(i);*/
-
         return rootView;
     }
     @Override
@@ -132,5 +157,6 @@ public class MemberFragment extends Fragment {
             mAdView.destroy();
         }
         super.onDestroy();
+        Glide.clear(mImageView);
     }
 }
