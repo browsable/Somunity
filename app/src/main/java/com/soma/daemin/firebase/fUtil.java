@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +31,7 @@ public class fUtil {
     public static FirebaseRemoteConfig firebaseRemoteConfig;
     public static FirebaseStorage firebaseStorage;
     public static StorageReference storageReference;
+    public static FirebaseMessaging firebaseMessaging;
     //Auth
     public static void FirebaseInstanceInit(){
         firebaseAuth = FirebaseAuth.getInstance();
@@ -39,6 +41,7 @@ public class fUtil {
         firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+        firebaseMessaging = FirebaseMessaging.getInstance();
     }
     public static String getCurrentUserName() {
         FirebaseUser user = firebaseUser;

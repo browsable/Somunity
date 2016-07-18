@@ -16,6 +16,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,12 +50,14 @@ public class MemberFragment extends Fragment {
         public TextView messengerTextView;
         public TextView tvLogin;
         public CircleImageView messengerImageView;
+        public LinearLayout btUser;
 
         public MessageViewHolder(View v) {
             super(v);
             messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
             tvLogin = (TextView) itemView.findViewById(R.id.tvLogin);
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
+            btUser = (LinearLayout) itemView.findViewById(R.id.btUser);
         }
     }
     @Nullable
@@ -63,7 +66,6 @@ public class MemberFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_member,container,false);
         My.INFO.backKeyName ="MemberFragment";
-        memCnt=0;
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) rootView.findViewById(R.id.messageRecyclerView);
@@ -82,7 +84,6 @@ public class MemberFragment extends Fragment {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder, User user, int position) {
                 final MessageViewHolder vHolder = viewHolder;
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_mem)+" ("+(++memCnt)+")");
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 vHolder.messengerTextView.setText(user.getuName());
                 String eTime = user.getEndTime();
@@ -108,7 +109,7 @@ public class MemberFragment extends Fragment {
                             .into(vHolder.messengerImageView);
                     }catch(NullPointerException e){}
                 }
-                vHolder.messengerImageView.setOnClickListener(new View.OnClickListener() {
+                vHolder.btUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(getActivity(), UserDetailActivity.class);
@@ -122,7 +123,7 @@ public class MemberFragment extends Fragment {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
-
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_mem)+" ("+mFirebaseAdapter.getItemCount()+")");
             }
         });
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);

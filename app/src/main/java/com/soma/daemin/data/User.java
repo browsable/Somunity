@@ -10,6 +10,7 @@ public class User {
     private String endTime;
     private String study;
     private String career;
+    private String fcmToken;
 
     public User() {
 
@@ -18,11 +19,10 @@ public class User {
         this.fullPhotoURL = fullPhotoURL;
         this.thumbPhotoURL = thumbPhotoURL;
     }
-    public User(String uName, String uId, String fullPhotoURL, String thumbPhotoURL) {
+    public User(String uName, String uId,String fcmToken) {
         this.uId = uId;
         this.uName = uName;
-        this.fullPhotoURL = fullPhotoURL;
-        this.thumbPhotoURL = thumbPhotoURL;
+        this.fcmToken = fcmToken;
     }
 
     public String getuId() {
@@ -87,5 +87,12 @@ public class User {
 
     public void setCareer(String career) {
         this.career = career;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

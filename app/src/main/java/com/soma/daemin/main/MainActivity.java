@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_INVITE = 1;
     private BackPressCloseHandler backPressCloseHandler;
+    private String myId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +69,14 @@ public class MainActivity extends AppCompatActivity
 
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
         backPressCloseHandler = new BackPressCloseHandler(this);
-
-        fUtil.databaseReference.child("users").child(fUtil.getCurrentUserId()).child("startTime").setValue(System.currentTimeMillis()+"").addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-
-            }
-        });
+        myId = fUtil.getCurrentUserId();
+        fUtil.databaseReference.child("users").child(myId).child("startTime").setValue(System.currentTimeMillis()+"");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        fUtil.databaseReference.child("users").child(fUtil.getCurrentUserId()).child("endTime").setValue(System.currentTimeMillis()+"").addOnCompleteListener(new OnCompleteListener<Void>() {
+        fUtil.databaseReference.child("users").child(myId).child("endTime").setValue(System.currentTimeMillis()+"").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 

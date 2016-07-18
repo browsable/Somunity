@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.soma.daemin.R;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
@@ -126,7 +127,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements
                             SharedPreferences pref = getSharedPreferences("USERINFO", MODE_PRIVATE);
                             pref.edit().putInt("loginType",2).apply();
                             fUtil.firebaseUser = task.getResult().getUser();
-                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(name,fUtil.getCurrentUserId(),null,null));
+                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(name,fUtil.getCurrentUserId(),FirebaseInstanceId.getInstance().getToken()));
                             startActivity( new Intent(EmailPasswordActivity.this, MainActivity.class));
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }

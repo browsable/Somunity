@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.soma.daemin.R;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
@@ -122,7 +123,7 @@ public class SignInActivity extends AppCompatActivity implements
                     SharedPreferences pref =  getSharedPreferences("USERINFO", MODE_PRIVATE);
                     pref.edit().putInt("loginType",0).apply();
                     fUtil.firebaseUser = task.getResult().getUser();
-                    fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),null,null));
+                    fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),FirebaseInstanceId.getInstance().getToken()));
                     startActivity(new Intent(SignInActivity.this, MainActivity.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }

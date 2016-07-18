@@ -40,6 +40,7 @@ import com.bumptech.glide.RequestManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.StorageReference;
 import com.soma.daemin.R;
 import com.soma.daemin.data.User;
@@ -49,6 +50,7 @@ import com.soma.daemin.fragment.NewPicUploadTaskFragment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -74,6 +76,7 @@ public class UserDetailActivity extends AppCompatActivity implements
     private ProgressBar bar;
     private Button btAddProfile, btAddFriend;
     private TextView tvStudy, tvCareer, tvStartTime, tvEndTime;
+    AtomicInteger msgId = new AtomicInteger();
     private static final String[] cameraPerms = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -99,7 +102,22 @@ public class UserDetailActivity extends AppCompatActivity implements
         tvStartTime = (TextView) findViewById(R.id.tvStartTime);
         tvEndTime = (TextView) findViewById(R.id.tvEndTime);
         bar = (ProgressBar) findViewById(R.id.progressBar);
-        if(uId.equals(currentUserId)) btAddFriend.setVisibility(View.INVISIBLE);
+        if (uId.equals(currentUserId)) btAddFriend.setVisibility(View.INVISIBLE);
+        fUtil.databaseReference.child("friends").child(currentUserId).child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    boolean isFriend = (boolean) dataSnapshot.getValue();
+                    if (isFriend) btAddFriend.setVisibility(View.INVISIBLE);
+                } catch (NullPointerException e) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         try {
             fUtil.databaseReference.child("users").child(uId).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -110,12 +128,11 @@ public class UserDetailActivity extends AppCompatActivity implements
                         String career = user.getCareer();
                         String startTime = user.getStartTime();
                         String endTime = user.getEndTime();
-                        if(user.getThumbPhotoURL()==null) {
+                        if (user.getThumbPhotoURL() == null) {
                             imgDetail = false;
                             collapsingToolbar.setTitle("");
                             ivProfile.setBackgroundResource(R.drawable.ic_account_circle_black_36dp);
-                        }
-                        else {
+                        } else {
                             mGlideRequestManager.load(user.getThumbPhotoURL())
                                     .placeholder(R.drawable.ic_account_circle_black_36dp)
                                     .dontAnimate()
@@ -124,14 +141,14 @@ public class UserDetailActivity extends AppCompatActivity implements
                             imgDetail = true;
                         }
                         collapsingToolbar.setTitle(user.getuName());
-                        if(study != null) tvStudy.setText(study);
-                        if(career != null) tvCareer.setText(career);
+                        if (study != null) tvStudy.setText(study);
+                        if (career != null) tvCareer.setText(career);
                         SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        if(startTime != null) {
+                        if (startTime != null) {
                             String sTime = dayTime.format(new Date(Long.parseLong(startTime)));
                             tvStartTime.setText(sTime);
                         }
-                        if(endTime != null){
+                        if (endTime != null) {
                             String eTime = dayTime.format(new Date(Long.parseLong(endTime)));
                             tvEndTime.setText(eTime);
                         }
@@ -152,7 +169,27 @@ public class UserDetailActivity extends AppCompatActivity implements
             imgDetail = false;
         }
 
+        btAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String token = (String) dataSnapshot.getValue();
+                        fUtil.firebaseMessaging.send(new RemoteMessage.Builder(token+ "@gcm.googleapis.com")
+                                .setMessageId(Integer.toString(msgId.incrementAndGet()))
+                                .addData("my_message", "Hello World")
+                                .addData("my_action", "SAY_HELLO")
+                                .build());
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (NewPicUploadTaskFragment) fm.findFragmentByTag(TAG_TASK_FRAGMENT);
         // create the fragment and data the first time
@@ -174,14 +211,14 @@ public class UserDetailActivity extends AppCompatActivity implements
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imgDetail) {
+                if (imgDetail) {
                     Intent i = new Intent(UserDetailActivity.this, DetailActivity.class);
                     i.putExtra("uId", uId);
                     startActivity(i);
                 }
             }
         });
-        if(fUtil.getCurrentUserId().equals(uId)) {
+        if (fUtil.getCurrentUserId().equals(uId)) {
             btAddProfile.setVisibility(View.VISIBLE);
             btAddProfile.setOnClickListener(new View.OnClickListener() {
                 @Override

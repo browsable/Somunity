@@ -41,6 +41,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.soma.daemin.R;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
@@ -179,7 +180,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                             pref.edit().putInt("loginType",1).apply();
                             finish();
                             fUtil.firebaseUser = task.getResult().getUser();
-                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),null,null));
+                            fUtil.getUserRef().child(fUtil.firebaseUser.getUid()).setValue(new User(fUtil.firebaseUser.getDisplayName(),fUtil.getCurrentUserId(),FirebaseInstanceId.getInstance().getToken()));
                             Intent i = new Intent(FacebookLoginActivity.this, MainActivity.class);
                             i.putExtra("uId", fUtil.firebaseUser.getUid());
                             startActivity(i);
