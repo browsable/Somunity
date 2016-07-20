@@ -35,7 +35,7 @@ Software Maestro 7th Community
 > <h5>https://play.google.com/store/apps/details?id=com.soma.daemin
 
 <h4>* CMS Web Page
-> <h5>https://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
+> <h5>http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
 
 <h4>* Github Source Code 
 > <h5>app - https://github.com/browsable/Somunity/
