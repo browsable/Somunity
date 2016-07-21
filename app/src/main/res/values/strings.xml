@@ -63,5 +63,6 @@
     <string name="nav_chat">Chat</string>
     <string name="nav_mem">Member</string>
     <string name="nav_calendar">Canlender</string>
+    <string name="assignment">Assigment Check</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3586590119792360/1515833333</string>
 </resources>

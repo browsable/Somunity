@@ -81,9 +81,7 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.isseiaoki:simplecropview:1.0.13'
     compile 'com.yongchun:com.yongchun.imageselector:1.1.0'
-}
-apply plugin: 'com.google.gms.google-services'
-/*compile 'com.squareup.okhttp:okhttp:1.2.1'
+    compile 'com.squareup.okhttp:okhttp:1.2.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.5'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
@@ -92,4 +90,5 @@ apply plugin: 'com.google.gms.google-services'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'com.navercorp.volleyextensions:volley-views:2.0.1'
     compile 'com.navercorp.volleyextensions:volleyer:2.0.1'
-    */
+}
+apply plugin: 'com.google.gms.google-services'

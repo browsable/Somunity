@@ -108,7 +108,6 @@ public class MainFragment extends Fragment {
         });
         recyclerView.setAdapter(mAdapter);
 
-
         return rootView;
     }
     private void showPopupMenu(View view, String key) {
