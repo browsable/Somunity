@@ -32,11 +32,11 @@ Software Maestro 7th Community
     AWS, Firebase 사용
 
 #<h3>Google Play Store
-     https://play.google.com/store/apps/details?id=com.soma.daemin
+     <https://play.google.com/store/apps/details?id=com.soma.daemin>
 
 #<h3>CMS Web Page
-     http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
+     <http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com>
 
 #<h3>Github Source Code 
-     app - https://github.com/browsable/Somunity/
-     web - https://github.com/browsable/somunity_web/
+     app - <https://github.com/browsable/Somunity/>
+     web - <https://github.com/browsable/somunity_web/>
