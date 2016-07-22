@@ -36,10 +36,10 @@ Software Maestro 7th Community
      <p>Push, CMS를 위한 Node.js Back-End 구축 : MySQL DB에서 SQL을 통해 User 정보 관리
      
 #<h3>Restful
-     <p>/users GET : User List를 가져옴
-     <p>/users POST : User의 이름과 미래기술스터디 정보를 파라미터로 넘기면서 등록
-     <p>/users PUT : User의 정보를 업데이트
-     <p>/users DELETE : 특정 User 삭제
+     /users GET : User List를 가져옴
+     /users POST : User의 이름과 미래기술스터디 정보를 파라미터로 넘기면서 등록
+     /users PUT : User의 정보를 업데이트
+     /users DELETE : 특정 User 삭제
 
 <h3>Google Play Store
      <h5><p>https://play.google.com/store/apps/details?id=com.soma.daemin
