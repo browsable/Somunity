@@ -2,8 +2,8 @@
 Software Maestro 7th Community
 
 # 주요 기능
-<hr/>
-#<h3>인증
+
+<h3>인증
 <h5>GitHub, Facebook, E-mail, Anonymous
 
 #<h3>사진첩
@@ -25,10 +25,10 @@ Software Maestro 7th Community
 #<h3>공유 캘린더
  <h5>SW Maestro 내의 공동의 일정을 함께 등록, 관리
  
-#<h4>Push
+#<h3>Push
 <h5> Firebase Cloud Messaging, 친구 추가시 상대방에게 친구초대 푸시
 
-#<h4>Cloud 
+#<h3>Cloud 
 <h5> AWS, Firebase 사용
 
 #<h3>Google Play Store
