@@ -39,4 +39,4 @@ Software Maestro 7th Community
 
 <h3>Github Source Code 
      <h5><p>app - https://github.com/browsable/Somunity/
-     web - https://github.com/browsable/somunity_web/
+     <p>web - https://github.com/browsable/somunity_web/
