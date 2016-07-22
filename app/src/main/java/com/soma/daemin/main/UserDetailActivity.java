@@ -35,21 +35,33 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.StorageReference;
 import com.soma.daemin.R;
+import com.soma.daemin.common.CustomJSONObjectRequest;
+import com.soma.daemin.common.MyVolley;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.fragment.NewPicUploadTaskFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,7 +88,6 @@ public class UserDetailActivity extends AppCompatActivity implements
     private ProgressBar bar;
     private Button btAddProfile, btAddFriend;
     private TextView tvStudy, tvCareer, tvStartTime, tvEndTime;
-    AtomicInteger msgId = new AtomicInteger();
     private static final String[] cameraPerms = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -89,6 +100,22 @@ public class UserDetailActivity extends AppCompatActivity implements
         final String uId = getIntent().getStringExtra("uId");
         mGlideRequestManager = Glide.with(UserDetailActivity.this);
         currentUserId = fUtil.getCurrentUserId();
+        fUtil.databaseReference.child(currentUserId).child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    if(dataSnapshot.getValue()!=null) {
+                        //btAddFriend.setVisibility(View.INVISIBLE);//null인 경우만 제외
+                    }
+                } catch (NullPointerException e) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,21 +130,7 @@ public class UserDetailActivity extends AppCompatActivity implements
         tvEndTime = (TextView) findViewById(R.id.tvEndTime);
         bar = (ProgressBar) findViewById(R.id.progressBar);
         if (uId.equals(currentUserId)) btAddFriend.setVisibility(View.INVISIBLE);
-        fUtil.databaseReference.child("friends").child(currentUserId).child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    boolean isFriend = (boolean) dataSnapshot.getValue();
-                    if (isFriend) btAddFriend.setVisibility(View.INVISIBLE);
-                } catch (NullPointerException e) {
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         try {
             fUtil.databaseReference.child("users").child(uId).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -168,19 +181,21 @@ public class UserDetailActivity extends AppCompatActivity implements
         } catch (Exception e) {
             imgDetail = false;
         }
-
         btAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fUtil.databaseReference.child(currentUserId).child(uId).setValue(uId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        btAddFriend.setVisibility(View.INVISIBLE);
+                    }
+                });
+                //친구추가푸시구현
                 fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String token = (String) dataSnapshot.getValue();
-                        fUtil.firebaseMessaging.send(new RemoteMessage.Builder(token+ "@gcm.googleapis.com")
-                                .setMessageId(Integer.toString(msgId.incrementAndGet()))
-                                .addData("my_message", "Hello World")
-                                .addData("my_action", "SAY_HELLO")
-                                .build());
+                        FcmPush(token);
                     }
 
                     @Override
@@ -336,5 +351,49 @@ public class UserDetailActivity extends AppCompatActivity implements
                 }
             }
         });
+    }
+
+    public static final String PUSH_POST = "52.192.204.226/fcm";
+    public static final String KEY_SUCCESS ="success";
+    public static void FcmPush(final String token) {
+        CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, PUSH_POST, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString(KEY_SUCCESS) != null) {
+                                int success = Integer.parseInt(response.getString(KEY_SUCCESS));
+                                if (success == 1) {
+                                    Log.i("test",response.getString("message"));
+                                }else {
+                                    Log.i("test","Something went wrong.Please try again..");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Response Error", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                return headers;
+            }
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("tag", "fcm");
+                params.put("registration_token", token);
+                params.put("name", fUtil.getCurrentUserName());
+                return params;
+            }
+        };
+        MyVolley.getRequestQueue().add(rq);
     }
 }

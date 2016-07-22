@@ -47,8 +47,8 @@ public class fUtil {
         FirebaseUser user = firebaseUser;
         if (user != null) {
             return user.getDisplayName();
-        }
-        return null;
+        }else
+            return "anonymous";
     }
     public static String getCurrentUserId() {
         FirebaseUser user = firebaseUser;

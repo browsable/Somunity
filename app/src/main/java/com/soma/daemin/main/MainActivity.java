@@ -31,6 +31,7 @@ import com.soma.daemin.common.BackPressCloseHandler;
 import com.soma.daemin.common.My;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.fragment.ChatFragment;
+import com.soma.daemin.fragment.FriendsFragment;
 import com.soma.daemin.fragment.MainFragment;
 import com.soma.daemin.fragment.MemberFragment;
 
@@ -148,10 +149,15 @@ public class MainActivity extends AppCompatActivity
                 My.INFO.backKeyName ="ChatFragment";
                 fm.beginTransaction().replace(R.id.content_frame,new ChatFragment()).commit();
                 break;
-            case R.id.nav_mem:
+            case R.id.nav_member:
                 My.INFO.backKeyName ="MemberFragment";
                 fm.beginTransaction().replace(R.id.content_frame,new MemberFragment()).commit();
                 break;
+            case R.id.nav_friends:
+                My.INFO.backKeyName ="FriendsFragment";
+                fm.beginTransaction().replace(R.id.content_frame,new FriendsFragment()).commit();
+                break;
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

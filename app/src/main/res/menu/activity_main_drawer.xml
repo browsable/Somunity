@@ -9,8 +9,11 @@
             android:id="@+id/nav_chat"
             android:title="@string/nav_chat" />
         <item
-            android:id="@+id/nav_mem"
-            android:title="@string/nav_mem" />
+            android:id="@+id/nav_member"
+            android:title="@string/nav_member" />
+        <item
+            android:id="@+id/nav_friends"
+            android:title="@string/nav_friends" />
         <item
             android:id="@+id/nav_calendar"
             android:title="@string/nav_calendar" />
