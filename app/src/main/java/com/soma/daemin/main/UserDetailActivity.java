@@ -17,6 +17,7 @@
 package com.soma.daemin.main;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -36,9 +37,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,9 +60,11 @@ import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.fragment.NewPicUploadTaskFragment;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -191,7 +199,8 @@ public class UserDetailActivity extends AppCompatActivity implements
                     }
                 });
                 //친구추가푸시구현
-                fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
+                FcmPush("hi");
+                /*fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String token = (String) dataSnapshot.getValue();
@@ -202,7 +211,7 @@ public class UserDetailActivity extends AppCompatActivity implements
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                });*/
             }
         });
         FragmentManager fm = getSupportFragmentManager();
@@ -353,8 +362,9 @@ public class UserDetailActivity extends AppCompatActivity implements
         });
     }
 
-    public static final String PUSH_POST = "52.192.204.226/fcm";
+    public static final String PUSH_POST = "http://localhost:9000/fcm";
     public static final String KEY_SUCCESS ="success";
+
     public static void FcmPush(final String token) {
         CustomJSONObjectRequest rq = new CustomJSONObjectRequest(Request.Method.POST, PUSH_POST, null,
                 new Response.Listener<JSONObject>() {
@@ -382,16 +392,14 @@ public class UserDetailActivity extends AppCompatActivity implements
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                headers.put("Content-Type", "x-www-form-urlencoded");
                 return headers;
             }
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "fcm");
-                params.put("registration_token", token);
-                params.put("name", fUtil.getCurrentUserName());
-                return params;
+            public byte[] getBody() throws AuthFailureError {
+                String body = "{\"registration_token\":\""+token
+                        +"\"name\":\""+fUtil.getCurrentUserName()+"\"tag\":\"fcm\"}";
+                return body.getBytes();
             }
         };
         MyVolley.getRequestQueue().add(rq);
