@@ -7,7 +7,7 @@ Software Maestro 7th Community
      GitHub, Facebook, E-mail, Anonymous
 
 #<h3>사진첩
-    사진첩 상세화면, 댓글, 업로드 시간 확인 
+    사진첩, 상세화면, 멀티업로드, 댓글, 업로드 시간 확인 
 
 #<h3> 사용자 상세 프로필 
      접속시간, 마지막 접속시간 확인
