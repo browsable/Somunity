@@ -37,7 +37,7 @@ Software Maestro 7th Community
      
 #<h3>Restful
      /users GET : User List를 가져옴
-     /users POST : User의 이름과 미래기술스터디 정보를 파라미터로 넘기면서 등록
+     /users POST : 이름과 미래기술스터디 정보를 파라미터로 넘기면서 User 등록
      /users PUT : User의 정보를 업데이트
      /users DELETE : 특정 User 삭제
 
