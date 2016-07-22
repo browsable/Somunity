@@ -114,7 +114,7 @@ public class UserDetailActivity extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     if(dataSnapshot.getValue()!=null) {
-                        //btAddFriend.setVisibility(View.INVISIBLE);//null인 경우만 제외
+                        btAddFriend.setVisibility(View.INVISIBLE);//null인 경우만 제외
                     }
                 } catch (NullPointerException e) {
                 }
