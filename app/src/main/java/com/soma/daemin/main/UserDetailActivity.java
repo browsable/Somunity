@@ -42,6 +42,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
@@ -199,8 +200,7 @@ public class UserDetailActivity extends AppCompatActivity implements
                     }
                 });
                 //친구추가푸시구현
-                FcmPush("hi");
-                /*fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
+                fUtil.databaseReference.child("users").child(uId).child("fcmToken").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String token = (String) dataSnapshot.getValue();
@@ -211,7 +211,8 @@ public class UserDetailActivity extends AppCompatActivity implements
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });*/
+                });
+
             }
         });
         FragmentManager fm = getSupportFragmentManager();
@@ -362,7 +363,7 @@ public class UserDetailActivity extends AppCompatActivity implements
         });
     }
 
-    public static final String PUSH_POST = "http://localhost:9000/fcm";
+    public static final String PUSH_POST = "http://52.192.204.226/fcm";
     public static final String KEY_SUCCESS ="success";
 
     public static void FcmPush(final String token) {
@@ -392,16 +393,32 @@ public class UserDetailActivity extends AppCompatActivity implements
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "x-www-form-urlencoded");
+                headers.put("Content-Type", "application/json");
                 return headers;
             }
             @Override
             public byte[] getBody() throws AuthFailureError {
                 String body = "{\"registration_token\":\""+token
-                        +"\"name\":\""+fUtil.getCurrentUserName()+"\"tag\":\"fcm\"}";
+                        +"\",\"name\":\""+"hi"+"\"}";
                 return body.getBytes();
             }
         };
+        rq.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         MyVolley.getRequestQueue().add(rq);
     }
 }
