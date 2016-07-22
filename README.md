@@ -26,7 +26,7 @@ Software Maestro 7th Community
  ><h5>SW Maestro 내의 공동의 일정을 함께 등록, 관리
  
  <h4>* Push
-><h5> Firebase Cloud Messaging 사용
+><h5> Firebase Cloud Messaging, 친구 추가시 상대방에게 친구초대 푸시
 
 <h4>* Cloud 
 ><h5> AWS, Firebase 사용
