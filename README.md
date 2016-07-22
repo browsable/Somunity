@@ -31,6 +31,16 @@ Software Maestro 7th Community
 #<h3>Cloud 
     AWS, Firebase 사용
 
+#<h3>Back-End 
+     <p>사진첩, 게시글, 채팅, 상세화면 구성을 위한 Firebase Realtime Database
+     <p>Push, CMS를 위한 Node.js Back-End 구축 : MySQL DB에서 SQL을 통해 User 정보 관리
+     
+#<h3>Restful
+     <p>/users GET : User List를 가져옴
+     <p>/users POST : User의 이름과 미래기술스터디 정보를 파라미터로 넘기면서 등록
+     <p>/users PUT : User의 정보를 업데이트
+     <p>/users DELETE : 특정 User 삭제
+
 <h3>Google Play Store
      <h5><p>https://play.google.com/store/apps/details?id=com.soma.daemin
 
