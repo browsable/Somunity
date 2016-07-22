@@ -30,6 +30,7 @@ import com.soma.daemin.auth.SignInActivity;
 import com.soma.daemin.common.BackPressCloseHandler;
 import com.soma.daemin.common.My;
 import com.soma.daemin.firebase.fUtil;
+import com.soma.daemin.fragment.CalendarFragment;
 import com.soma.daemin.fragment.ChatFragment;
 import com.soma.daemin.fragment.FriendsFragment;
 import com.soma.daemin.fragment.MainFragment;
@@ -156,6 +157,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_friends:
                 My.INFO.backKeyName ="FriendsFragment";
                 fm.beginTransaction().replace(R.id.content_frame,new FriendsFragment()).commit();
+                break;
+            case R.id.nav_calendar:
+                My.INFO.backKeyName ="CalendarFragment";
+                fm.beginTransaction().replace(R.id.content_frame,new CalendarFragment()).commit();
                 break;
 
         }
