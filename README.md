@@ -32,8 +32,8 @@ Software Maestro 7th Community
     AWS, Firebase 사용
 
 #<h3>Back-End 
-     <p>사진첩, 게시글, 채팅, 상세화면 구성을 위한 Firebase Realtime Database
-     <p>Push, CMS를 위한 Node.js Back-End 구축 : MySQL DB에서 SQL을 통해 User 정보 관리
+     사진첩, 게시글, 채팅, 상세화면 구성을 위한 Firebase Realtime Database
+     Push, CMS를 위한 Node.js Back-End 구축 : MySQL DB에서 SQL을 통해 User 정보 관리
      
 #<h3>Restful
      /users GET : User List를 가져옴
