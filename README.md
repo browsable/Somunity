@@ -1,12 +1,12 @@
 # Somunity
 Software Maestro 7th Community
 
-주요 기능
-
-><h4> 인증 
+# 주요 기능
+<hr/>
+#<h4>인증
 <h5>GitHub, Facebook, E-mail, Anonymous
 
-><h4> 사진첩
+#<h4>사진첩
 <h5>사진첩 상세화면, 댓글, 업로드 시간 확인 
 
 ><h4> 사용자 상세 프로필 
