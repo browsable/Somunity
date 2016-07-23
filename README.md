@@ -49,5 +49,5 @@ Software Maestro 7th Community
 
 <h3>Github Source Code 
      <h5><p>android - https://github.com/browsable/Somunity/
-     <h5><p>ios - https://github.com/browsable/Somunity_IOS/
+     <p>ios - https://github.com/browsable/Somunity_IOS/
      <p>web - https://github.com/browsable/somunity_web/
