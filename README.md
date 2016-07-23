@@ -48,5 +48,6 @@ Software Maestro 7th Community
      <h5><p>http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
 
 <h3>Github Source Code 
-     <h5><p>app - https://github.com/browsable/Somunity/
+     <h5><p>android - https://github.com/browsable/Somunity/
+     <h5><p>ios - https://github.com/browsable/Somunity_IOS/
      <p>web - https://github.com/browsable/somunity_web/
