@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ import com.soma.daemin.common.My;
 import com.soma.daemin.data.User;
 import com.soma.daemin.firebase.fUtil;
 import com.soma.daemin.main.UserDetailActivity;
-
-import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -72,6 +69,7 @@ public class FriendsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_member,container,false);
         My.INFO.backKeyName ="FriendsFragment";
         // Initialize ProgressBar and RecyclerView.
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_friends));
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) rootView.findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
