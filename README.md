@@ -1,7 +1,22 @@
 # Somunity
 Software Maestro 7th Community
 
+<h3>Google Play Store
+     <h5><p>https://play.google.com/store/apps/details?id=com.soma.daemin
+
+<h3>CMS Web Page
+     <h5><p>http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
+
+<h3>Github Source Code 
+     <h5><p>android - https://github.com/browsable/Somunity/
+     <p>ios - https://github.com/browsable/Somunity_IOS/
+     <p>web - https://github.com/browsable/somunity_web/
+     
+<h3>Youtube 시연 영상
+     <h5><p>https://youtu.be/ohIPmZpTOpc
+
 #<h3>주요기능
+
 #<h3>인증
      GitHub, Facebook, E-mail, Anonymous
 
@@ -44,17 +59,3 @@ Software Maestro 7th Community
      /users POST : 이름과 미래기술스터디 정보를 파라미터로 넘기면서 User 등록
      /users PUT : User의 정보를 업데이트
      /users DELETE : 특정 User 삭제
-
-<h3>Google Play Store
-     <h5><p>https://play.google.com/store/apps/details?id=com.soma.daemin
-
-<h3>CMS Web Page
-     <h5><p>http://ec2-52-192-204-226.ap-northeast-1.compute.amazonaws.com
-
-<h3>Github Source Code 
-     <h5><p>android - https://github.com/browsable/Somunity/
-     <p>ios - https://github.com/browsable/Somunity_IOS/
-     <p>web - https://github.com/browsable/somunity_web/
-     
-<h3>Youtube 시연 영상
-     <h5><p>https://youtu.be/ohIPmZpTOpc
