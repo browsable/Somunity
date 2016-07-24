@@ -1,8 +1,7 @@
 # Somunity
 Software Maestro 7th Community
 
-# 주요 기능
-
+#<h3>주요기능
 #<h3>인증
      GitHub, Facebook, E-mail, Anonymous
 
@@ -34,6 +33,11 @@ Software Maestro 7th Community
 #<h3>Back-End 
      사진첩, 게시글, 채팅, 상세화면 구성을 위한 Firebase Realtime Database
      Push, CMS를 위한 Node.js Back-End 구축 : MySQL DB에서 SQL을 통해 User 정보 관리
+
+#<h3>CMS 
+     관리자 계정 로그인, User Management, Analytics, Remote Chat 
+#<h3>IOS
+     CMS를 위한 Hybrid App
      
 #<h3>Restful
      /users GET : User List를 가져옴
@@ -51,3 +55,6 @@ Software Maestro 7th Community
      <h5><p>android - https://github.com/browsable/Somunity/
      <p>ios - https://github.com/browsable/Somunity_IOS/
      <p>web - https://github.com/browsable/somunity_web/
+     
+<h3>Youtube 시연 영상
+     <h5><p>https://youtu.be/ohIPmZpTOpc
